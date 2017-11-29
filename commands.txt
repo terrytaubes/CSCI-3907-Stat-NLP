@@ -1,0 +1,42 @@
+cd Desktop/nlp/Assignment 3
+
+
+[ Creating Training Sets (4, 40, 400, 4000, full) ]
+
+(4 Sentences)
+$ cut -d \| -f 6 en-universal-train.conll | grep -v -E .\+ -n | head -4
+50:
+56:
+77:
+90:
+
+$ sed -n '1,90 p' en-universal-train.conll > en-universal-train-4.conll
+
+
+(40 Sentences)
+$ cut -d \| -f 6 en-universal-train.conll | grep -v -E .\+ -n | head -40
+...
+1033:
+
+$ sed -n '1,1033 p' en-universal-train.conll > en-universal-train-40.conll
+
+
+(400 Sentences)
+$ cut -d \| -f 6 en-universal-train.conll | grep -v -E .\+ -n | head -400
+...
+10086:
+
+$ sed -n '1,10086 p' en-universal-train.conll > en-universal-train-400.conll
+
+
+(4000 Sentences)
+$ cut -d \| -f 6 en-universal-train.conll | grep -v -E .\+ -n | head -4000
+...
+99498:
+
+$ sed -n '1,99498 p' en-universal-train.conll > en-universal-train-4000.conll
+
+
+[ Building Models ]
+
+$ java -jar -Xmx5000m -Xms5000m maltparser-1.9.1/maltparser-1.9.1.jar -c model_full -i en-universal-train.conll -m learn
