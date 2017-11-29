@@ -38,5 +38,24 @@ $ sed -n '1,99498 p' en-universal-train.conll > en-universal-train-4000.conll
 
 
 [ Building Models ]
-
+$ java -jar -Xmx5000m -Xms5000m maltparser-1.9.1/maltparser-1.9.1.jar -c model_4 -i en-universal-train-4.conll -m learn
+$ java -jar -Xmx5000m -Xms5000m maltparser-1.9.1/maltparser-1.9.1.jar -c model_40 -i en-universal-train-40.conll -m learn
+$ java -jar -Xmx5000m -Xms5000m maltparser-1.9.1/maltparser-1.9.1.jar -c model_400 -i en-universal-train-400.conll -m learn
+$ java -jar -Xmx5000m -Xms5000m maltparser-1.9.1/maltparser-1.9.1.jar -c model_4000 -i en-universal-train-4000.conll -m learn
 $ java -jar -Xmx5000m -Xms5000m maltparser-1.9.1/maltparser-1.9.1.jar -c model_full -i en-universal-train.conll -m learn
+
+
+[ Parsing Dev Set ]
+$ java -jar maltparser-1.9.1/maltparser-1.9.1.jar -c model_4 -i en-universal-dev.conll -o dev.out.ex.1.a.conll -m parse
+$ java -jar maltparser-1.9.1/maltparser-1.9.1.jar -c model_40 -i en-universal-dev.conll -o dev.out.ex.1.b.conll -m parse
+$ java -jar maltparser-1.9.1/maltparser-1.9.1.jar -c model_400 -i en-universal-dev.conll -o dev.out.ex.1.c.conll -m parse
+$ java -jar maltparser-1.9.1/maltparser-1.9.1.jar -c model_4000 -i en-universal-dev.conll -o dev.out.ex.1.d.conll -m parse
+$ java -jar maltparser-1.9.1/maltparser-1.9.1.jar -c model_full -i en-universal-dev.conll -o dev.out.ex.1.e.conll -m parse
+
+
+[ Testing Models against Dev Set ]
+$ perl conll-eval.pl -g en-universal-dev.conll -s dev.out.ex.1.a.conll
+$ perl conll-eval.pl -g en-universal-dev.conll -s dev.out.ex.1.b.conll
+$ perl conll-eval.pl -g en-universal-dev.conll -s dev.out.ex.1.c.conll
+$ perl conll-eval.pl -g en-universal-dev.conll -s dev.out.ex.1.d.conll
+$ perl conll-eval.pl -g en-universal-dev.conll -s dev.out.ex.1.e.conll
